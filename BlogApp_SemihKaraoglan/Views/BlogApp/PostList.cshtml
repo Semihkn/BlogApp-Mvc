@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "All Posts";
+}
+
+@model PostViewModel
+@section Script{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+}
+
+<div class="breadcrumbs">
+    <div class="container">
+        <h2>All Posts</h2>
+    </div>
+</div>
+
+<section>
+    <div class="container">
+        <div class="row">
+            @if (Model.Posts.Count == 0)
+            {
+                <partial name="_NoPost" />
+            }
+            else
+            {
+                @foreach (var post in Model.Posts)
+                {
+                    <div class="col-md-3">
+                        @await Html.PartialAsync("_Post", post)
+                    </div>
+
+                }
+            }
+        </div>
+    </div>
+</section>

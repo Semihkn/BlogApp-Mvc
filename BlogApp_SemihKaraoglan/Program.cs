@@ -66,8 +66,33 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
+    name: "search",
+    pattern: "search",
+    defaults: new { controller = "BlogApp", action = "Search" }
+);
+
+app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+
+app.MapControllerRoute(
+    name: "postList",
+    pattern: "posts/{category?}",
+    defaults: new { controller = "BlogApp", action = "PostList" }
+);
+
+app.MapControllerRoute(
+    name: "postByCategory",
+    defaults: new { controller = "BlogApp", action = "ListByCategory" },
+    pattern: "posts/categories/{category?}"
+    );
+
+
+app.MapControllerRoute(
+    name: "details",
+    pattern: "post/{url}",
+    defaults: new { controller = "BlogApp", action = "Details" }
+);
 
 app.Run();

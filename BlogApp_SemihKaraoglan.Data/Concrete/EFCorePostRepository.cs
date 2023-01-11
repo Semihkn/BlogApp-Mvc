@@ -28,7 +28,7 @@ namespace BlogApp_SemihKaraoglan.Data.Concrete
                 .Posts
                 .Include(p => p.Author)
                 .Include(p => p.Tags)
-                .Where(p => p.IsPublished == true)
+                .Where(p => p.IsDeleted == false)
                 .ToListAsync();
         }
 
@@ -95,7 +95,8 @@ namespace BlogApp_SemihKaraoglan.Data.Concrete
             var posts = context
                 .Posts
                 .Include(s => s.Author)
-                //.Where(s => s.Author == authorId && s.IsDeleted == false)
+                
+                //.Where(s => s.UserId == authorId && s.IsDeleted == false)
                 .ToListAsync();
 
             return await posts;

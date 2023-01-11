@@ -1,0 +1,5 @@
+Role: Admin
+------------------------
+Mail: DenemeAdmin
+Password: Deneme1@
+

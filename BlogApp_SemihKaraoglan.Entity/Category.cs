@@ -9,7 +9,6 @@ namespace BlogApp_SemihKaraoglan.Entity
     public class Category : BaseEntity
     {
         public string Name { get; set; }
-        public string Parent { get; set; }
         public bool IsDeleted { get; set; }
         public ICollection<PostCategory> PostCategory { get; set; }
     }

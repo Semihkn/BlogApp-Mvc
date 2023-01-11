@@ -1,5 +1,179 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@model PostModel
+
+<div class="breadcrumbs">
+    <div class="container">
+        <h2>Create Post</h2>
+    </div>
+</div>
+
+<section id="events" class="events">
+    <div class="container" data-aos="fade-up">
+
+        <div class="row" data-aos="zoom-in" data-aos-delay="100">
+
+            <form asp-controller="Author" asp-action="PostCreate" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-8">
+                        <input id="frmAuthorID" type="hidden" value="@ViewBag.UserId" />
+                        <input id="frmAuthorName" type="hidden" value="@ViewBag.Author" />
+
+                        <div class="form-group row mb-2">
+                            <div class="col-md-2">
+                                <label asp-for="HeroImageUrl">Image</label>
+                            </div>
+
+
+                            <div class="col-md-10">
+                                <img id="imgViewer" src="~/images/@Model.HeroImageUrl" />
+                                <input class="d-none" type="file" name="file" id="formFile" accept="image/" />
+                                <div>
+                                    <label class="btn btn-light" for="formFile">Upload Image</label>
+                                    <label id="imageUrl">@Model.HeroImageUrl</label>
+                                </div>
+                            </div>
+                            <span class="text-danger">@ViewBag.ImageErrorMessage</span>
+
+                        </div>
+
+                        <div class="form-group row mb-2">
+                            <div class="col-md-2">
+                                <label asp-for="Title">Title</label>
+                            </div>
+                            <div class="col-md-10">
+                                <input id="frmTitle" type="text" asp-for="Title" />
+                            </div>
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group row mb-2">
+                            <div class="col-md-2">
+                                <label asp-for="PostContent">Content :</label>
+                            </div>
+                            <div class="col-md-10">
+                                <input id="frmPostContent" type="text" asp-for="PostContent" />
+                            </div>
+                            <span asp-validation-for="PostContent" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group row ">
+                            <div class="col-md-10 offset-2">
+                                <button id="btnSubmit" class="btn btn-success" type="button">Create</button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+
+                        <div class="form-group row mb-2">
+                            <div class="col-md-4">
+                                <label class="filter-col" style="margin-right:0;" for="pref-perpage">Category :</label>
+                            </div>
+                            <div class="col-md-8">
+
+                                <select id="cat-select" class="form-control">
+                                    <option selected="selected" value="All">Choose Category</option>
+                                    <option value=""></option>
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <span class="text-danger">@ViewBag.CategoryErrorMessage</span>
+                        <hr />
+                        <div class="form-check form-switch">
+                            <input id="isDeleteId" type="checkbox" class="form-check-input" asp-for="IsDeleted" />
+                            <label class="form-check-label">Publish now?</label>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+
+        var CategorySelect2 = document.getElementById("cat-select");
+        const urlCategory2 = 'https://localhost:7123/Category/Get/';
+
+
+        function getCategories2() {
+
+            if (CategorySelect2.options.length > 0) {
+                while (CategorySelect2.options.length > 0) {
+                    CategorySelect2.remove(0);
+                }
+            }
+
+
+            fetch(urlCategory2)
+                .then(response => response.json())
+                .then(function (data) {
+                    // console.log(data);
+                    data.forEach((element, index) => {
+                        var el = document.createElement("option");
+                        el.textContent = element.name;
+                        el.value = element.id;
+                        CategorySelect2.appendChild(el);
+                    });
+                })
+                .catch(error => console.error('Unable to get items.', error));
+        }
+        getCategories2();
+
+        var submitButton = document.getElementById("btnSubmit");
+
+        submitButton.addEventListener('click', (event) => {
+            var title = document.getElementById("frmTitle");
+            var titleValue = title.value;
+
+            var content = document.getElementById("frmPostContent");
+            var contentValue = content.value;
+
+            var url = "";
+
+            var category = document.getElementById("cat-select");
+            var categoryValue = category.value;
+
+            var nameValue = title.value;
+
+            var active = document.getElementById("isDeleteId");
+            var activeValue = active.value;
+
+            var authorId = document.getElementById("frmAuthorID");
+            var authorIdValue = authorId.value;
+
+            var authorName = document.getElementById("frmAuthorName");
+            var authorNameValue = authorName.value;
+
+            let data = {
+                Id: 0,
+                Title: titleValue,
+                content: contentValue,
+                ImageUrl: "",
+                IsActivated: (activeValue === 'true'),
+                CategoryId: parseInt(categoryValue),
+                AuthorId: parseInt(authorIdValue),
+                SelectedCategory: "",
+            };
+
+            fetch("https://localhost:7123/PostCreate/", {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }).then(res => {
+                console.log("Request complete! response:", res);
+                window.location = 'https://localhost:7123/PostList';
+
+            });
+
+            console.log("Form values : ", titleValue, contentValue, categoryValue, nameValue, activeValue, , authorIdValue, authorNameValue);
+        });
+
+    </script>
 }
+

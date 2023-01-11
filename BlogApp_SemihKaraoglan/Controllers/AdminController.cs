@@ -274,37 +274,19 @@ namespace BlogApp_SemihKaraoglan.Controllers
                     Name = categoryModel.Name,
                     Url = url
                 };
-                 await _categoryService.CreateAsync(category);
-                
+                await _categoryService.CreateAsync(category);
                 return RedirectToAction("CategoryList");
-                
-               
             }
 
             return View(categoryModel);
         }
-        //public async Task<IActionResult> RoleCreate(RoleModel roleModel)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        IdentityRole role = new IdentityRole()
-        //        { Name = roleModel.Name };
-        //        var result = await _roleManager.CreateAsync(role);
-        //        if (result.Succeeded)
-        //        {
-        //            TempData["AlertMessage"] = Jobs.CreateMessage("Congratulations!", "Role created succesfully!", "success");
-        //            return RedirectToAction("RoleList");
-        //        }
-        //    }
-        //    return View(roleModel);
-        //}
 
         public async Task<IActionResult> CategoryEdit(int id)
         {
             var category = await _categoryService.GetByIdAsync(id);
             CategoryModel categoryModel = new CategoryModel()
             {
-                Id = category.Id,
+                //Id = category.Id,
                 Name = category.Name,
                 IsDeleted = category.IsDeleted,               
             };

@@ -11,9 +11,9 @@ namespace BlogApp_SemihKaraoglan.Models
         [MinLength(3)]
         public string Name { get; set; }
         public string Url { get; set; }
-        public bool IsDeleted { get; set; }
-        public List<Post> Posts { get; set; }
-        public List<Tag> Tags { get; set; }
+        public bool? IsDeleted { get; set; }
+        public List<Post>? Posts { get; set; }
+        public List<Tag>? Tags { get; set; }
 
     }
     public class CategoryDetails

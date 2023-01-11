@@ -9,14 +9,14 @@ namespace BlogApp_SemihKaraoglan.Controllers
     public class CategoryController : Controller
     {
         private ICategoryService _categoryService;
-        private IPostService _showCardService;
+        private IPostService _postService;
         private ITagService _tagService;
 
 
-        public CategoryController(ICategoryService categoryService, IPostService showCardService, ITagService tagService)
+        public CategoryController(ICategoryService categoryService, IPostService postService, ITagService tagService)
         {
             _categoryService = categoryService;
-            _showCardService = showCardService;
+            _postService = postService;
             _tagService = tagService;
         }
 
@@ -30,11 +30,11 @@ namespace BlogApp_SemihKaraoglan.Controllers
         public async Task<IActionResult> List(string category, int page = 1)  //List by category
         {
             const int pageSize = 9;
-            List<Post> posts = await _showCardService.GetPostsByCategoryAsync(category, page, pageSize);
+            List<Post> posts = await _postService.GetPostsByCategoryAsync(category, page, pageSize);
 
             PageInfo pageInfo = new PageInfo()
             {
-                TotalItems = await _showCardService.GetCountByCategoryAsync(category),
+                TotalItems = await _postService.GetCountByCategoryAsync(category),
                 CurrentPage = page,
                 ItemsPerPage = pageSize,
                 CurrentCategory = category

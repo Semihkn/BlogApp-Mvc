@@ -1,117 +1,97 @@
 ﻿@{
-    ViewData["Title"] = "Category List";
+    ViewData["Title"] = "Details";
 }
 
-@model PostViewModel
-@section Script{
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
-}
+@model PostDetailModel
 
-<section>
+
+<section class="single-post-content">
     <div class="container">
         <div class="row">
+            <div class="col-md-9 post-content" data-aos="fade-up">
 
-            <div class="col-md-9" data-aos="fade-up">
-                <h3 class="category-title">Category: Business</h3>
-
-                <div class="d-md-flex post-entry-2 half">
-                    <a href="single-post.html" class="me-4 thumbnail">
-                        <img src="~/assets/img/post-landscape-6.jpg" alt="" class="img-fluid">
-                    </a>
-                    <div>
-                        <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
-                        <h3><a href="single-post.html">What is the son of Football Coach John Gruden, Deuce Gruden doing Now?</a></h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio placeat exercitationem magni voluptates dolore. Tenetur fugiat voluptates quas, nobis error deserunt aliquam temporibus sapiente, laudantium dolorum itaque libero eos deleniti?</p>
-                        <div class="d-flex align-items-center author">
-                            <div class="photo"><img src="assets/img/person-2.jpg" alt="" class="img-fluid"></div>
-                            <div class="name">
-                                <h3 class="m-0 p-0">Wade Warren</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="d-md-flex post-entry-2 half">
-                    <a href="single-post.html" class="me-4 thumbnail">
+                <!-- ======= Post Content ======= -->
+                <div class="single-post">
+                    <div class="post-meta"><span class="date">@Model.Category</span> <span class="mx-1">&bullet;</span> <span>@Model.Post.PubDateUtc</span></div>
+                    <h1 class="mb-5">@Model.Post.Title</h1>                   
+                    <figure class="my-4">
                         <img src="~/assets/img/post-landscape-1.jpg" alt="" class="img-fluid">
-                    </a>
-                    <div>
-                        <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
-                        <h3><a href="single-post.html">What is the son of Football Coach John Gruden, Deuce Gruden doing Now?</a></h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio placeat exercitationem magni voluptates dolore. Tenetur fugiat voluptates quas, nobis error deserunt aliquam temporibus sapiente, laudantium dolorum itaque libero eos deleniti?</p>
-                        <div class="d-flex align-items-center author">
-                            <div class="photo"><img src="assets/img/person-2.jpg" alt="" class="img-fluid"></div>
-                            <div class="name">
-                                <h3 class="m-0 p-0">Wade Warren</h3>
+                        <figcaption>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, odit? </figcaption>
+                    </figure>
+                    <p>@Model.Post.PostContent</p>
+                    </div>
+
+                <!-- ======= Comments ======= -->
+                <div class="comments">
+                    <h5 class="comment-title py-4">@Model.Post.Comments.Count() Comments</h5>
+                    <div class="comment d-flex mb-4">
+                        <div class="flex-shrink-0">
+                            <div class="avatar avatar-sm rounded-circle">
+                                <img class="avatar-img" src="~/assets/img/person-5.jpg" alt="" class="img-fluid">
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-2 ms-sm-3">
+                            <div class="comment-meta d-flex align-items-baseline">
+                                <h6 class="me-2">Jordan Singer @Model.Comment.Username</h6>
+                                <span class="text-muted">2d</span>
+                            </div>
+                            <div class="comment-body">
+                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non minima ipsum at amet doloremque qui magni, placeat deserunt pariatur itaque laudantium impedit aliquam eligendi repellendus excepturi quibusdam nobis esse accusantium.
+                             @Model.Comment.CommentContent
+                            </div>
+                            <!-- Comment Replies -->
+                            <div class="comment-replies bg-light p-3 mt-3 rounded">
+                                <h6 class="comment-replies-title mb-4 text-muted text-uppercase">2 replies @Model.Comment.CommentReplies.Count()</h6>
+
+                                <div class="reply d-flex mb-4">
+                                    <div class="flex-shrink-0">
+                                        <div class="avatar avatar-sm rounded-circle">
+                                            <img class="avatar-img" src="~/assets/img/person-4.jpg" alt="" class="img-fluid">
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-2 ms-sm-3">
+                                        <div class="reply-meta d-flex align-items-baseline">
+                                            <h6 class="mb-0 me-2">Brandon Smith @Model.CommentReply.CommentId</h6>
+                                            <span class="text-muted">2d</span>
+                                        </div>
+                                        <div class="reply-body">
+                                            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                            @Model.CommentReply.ReplyContent
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </div>                  
+                </div>
+                <!-- ======= Comments Form ======= -->
+                <div class="row justify-content-center mt-5">
+
+                    <div class="col-lg-12">
+                        <h5 class="comment-title">Leave a Comment</h5>
+                        <div class="row">
+                            <div class="col-lg-6 mb-3">
+                                <label for="comment-name">Name</label>
+                                <input type="text" class="form-control" id="comment-name" placeholder="Enter your name">
+                            </div>
+                            <div class="col-lg-6 mb-3">
+                                <label for="comment-email">Email</label>
+                                <input type="text" class="form-control" id="comment-email" placeholder="Enter your email">
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="comment-message">Message</label>
+
+                                <textarea class="form-control" id="comment-message" placeholder="Enter your name" cols="30" rows="10"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <input type="submit" class="btn btn-primary" value="Post comment">
                             </div>
                         </div>
                     </div>
-                </div>
+                </div><!-- End Comments Form -->
 
-                <div class="d-md-flex post-entry-2 half">
-                    <a href="single-post.html" class="me-4 thumbnail">
-                        <img src="~/assets/img/post-landscape-2.jpg" alt="" class="img-fluid">
-                    </a>
-                    <div>
-                        <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
-                        <h3><a href="single-post.html">What is the son of Football Coach John Gruden, Deuce Gruden doing Now?</a></h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio placeat exercitationem magni voluptates dolore. Tenetur fugiat voluptates quas, nobis error deserunt aliquam temporibus sapiente, laudantium dolorum itaque libero eos deleniti?</p>
-                        <div class="d-flex align-items-center author">
-                            <div class="photo"><img src="assets/img/person-2.jpg" alt="" class="img-fluid"></div>
-                            <div class="name">
-                                <h3 class="m-0 p-0">Wade Warren</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="d-md-flex post-entry-2 half">
-                    <a href="single-post.html" class="me-4 thumbnail">
-                        <img src="~/assets/img/post-landscape-3.jpg" alt="" class="img-fluid">
-                    </a>
-                    <div>
-                        <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
-                        <h3><a href="single-post.html">What is the son of Football Coach John Gruden, Deuce Gruden doing Now?</a></h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio placeat exercitationem magni voluptates dolore. Tenetur fugiat voluptates quas, nobis error deserunt aliquam temporibus sapiente, laudantium dolorum itaque libero eos deleniti?</p>
-                        <div class="d-flex align-items-center author">
-                            <div class="photo"><img src="assets/img/person-2.jpg" alt="" class="img-fluid"></div>
-                            <div class="name">
-                                <h3 class="m-0 p-0">Wade Warren</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="d-md-flex post-entry-2 half">
-                    <a href="single-post.html" class="me-4 thumbnail">
-                        <img src="~/assets/img/post-landscape-4.jpg" alt="" class="img-fluid">
-                    </a>
-                    <div>
-                        <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
-                        <h3><a href="single-post.html">What is the son of Football Coach John Gruden, Deuce Gruden doing Now?</a></h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio placeat exercitationem magni voluptates dolore. Tenetur fugiat voluptates quas, nobis error deserunt aliquam temporibus sapiente, laudantium dolorum itaque libero eos deleniti?</p>
-                        <div class="d-flex align-items-center author">
-                            <div class="photo"><img src="~/assets/img/person-2.jpg" alt="" class="img-fluid"></div>
-                            <div class="name">
-                                <h3 class="m-0 p-0">Wade Warren</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="text-start py-4">
-                    <div class="custom-pagination">
-                        <a href="#" class="prev">Prevous</a>
-                        <a href="#" class="active">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#">4</a>
-                        <a href="#">5</a>
-                        <a href="#" class="next">Next</a>
-                    </div>
-                </div>
             </div>
-
             <div class="col-md-3">
                 <!-- ======= Sidebar ======= -->
                 <div class="aside-block">
@@ -247,17 +227,7 @@
 
                     </div>
                 </div>
-
-                <div class="aside-block">
-                    <h3 class="aside-title">Video</h3>
-                    <div class="video-post">
-                        <a href="https://www.youtube.com/watch?v=AiFfDjmd0jU" class="glightbox link-video">
-                            <span class="bi-play-fill"></span>
-                            <img src="assets/img/post-landscape-5.jpg" alt="" class="img-fluid">
-                        </a>
-                    </div>
-                </div><!-- End Video -->
-
+               
                 <div class="aside-block">
                     <h3 class="aside-title">Categories</h3>
                     <ul class="aside-links list-unstyled">
@@ -287,7 +257,6 @@
                 </div><!-- End Tags -->
 
             </div>
-
         </div>
     </div>
 </section>

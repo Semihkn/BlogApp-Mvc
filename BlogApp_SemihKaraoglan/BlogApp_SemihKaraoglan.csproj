@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>aspnet-BlogApp_SemihKaraoglan-bd692b64-04f8-4735-b388-52f7b93fcd1e</UserSecretsId>
   </PropertyGroup>
@@ -26,6 +26,10 @@
   <ItemGroup>
     <ProjectReference Include="..\BlogApp_SemihKaraoglan.Business\BlogApp_SemihKaraoglan.Business.csproj" />
     <ProjectReference Include="..\BlogApp_SemihKaraoglan.Core\BlogApp_SemihKaraoglan.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
 </Project>
